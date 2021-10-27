@@ -43,6 +43,8 @@ class binarysearchtree_contents(object):
         self.search_b = ttk.Button(master=self.set_of_operations, text="SEARCH", command=lambda: self.search(self.output))
         self.delete_b = ttk.Button(master=self.set_of_operations, text="DELETE", command=lambda: self.delete(self.output))
         self.inorder_d = ttk.Button(master=self.set_of_operations, text="INORDER", command=lambda: self.inorder(self.output))
+        self.preorder_d = ttk.Button(master=self.set_of_operations, text="PREORDER", command=lambda: self.preorder(self.output))
+        self.postorder_d = ttk.Button(master=self.set_of_operations, text="POSTORDER", command=lambda: self.postorder(self.output))
 
         # self.instructor = voice_assistant()
         # self.allow_speaking = False
@@ -55,6 +57,8 @@ class binarysearchtree_contents(object):
         self.search_b.pack(side=tk.LEFT, padx=2)
         self.delete_b.pack(side=tk.LEFT, padx=2)
         self.inorder_d.pack(side=tk.LEFT, padx=2)
+        self.preorder_d.pack(side=tk.LEFT, padx=2)
+        self.postorder_d.pack(side=tk.LEFT, padx=2)
         # self.voice_b.pack(side=tk.LEFT, padx=2)
 
         self.set_of_operations.pack(fill=tk.X)
@@ -277,17 +281,16 @@ class binarysearchtree_contents(object):
         while temp:
             if input<temp.val:
                 self.animate(temp.canvas,output)
-                # self.explain("{0} is less than {1}  Hence traversing to left sub tree of {1}".format(input,temp.val))
+                msg.showinfo(title="Node found", message="{0} is less than {1}  Hence traversing to left sub tree of {1}".format(input,temp.val))
                 temp = temp.left
             elif input>temp.val:
                 self.animate(temp.canvas, output)
-                # self.explain(
-                #     "{0} is greater than or equal to {1}  Hence traversing to right sub tree of {1}".format(input,
-                #                                                                                             temp.val))
+                msg.showinfo(title="Node found", message="{0} is greater than or equal to {1}  Hence traversing to right sub tree of {1}".format(input,
+                                                                                                            temp.val))
                 temp = temp.right
             else:
                 self.animate(temp.canvas, output,'#fb5581')
-                # self.explain("{0} found".format(input))
+                msg.showinfo(title="Node found", message="{0} found".format(input))
                 return
         else:
             # self.explain("{0} is not present in tree".format(input))
@@ -306,19 +309,27 @@ class binarysearchtree_contents(object):
                 self.animate(temp.canvas,output)
                 self.animate(temp.canvas, output,'#fb5581')
                 # self.explain("{0} found".format(input))
+                msg.showinfo(title="Node found", message="{0}   {1}".format(input,temp.val))
                 return
                 # self.explain("{0} is less than {1}  Hence traversing to left sub tree of {1}".format(input,temp.val))
             elif input<temp.val:
                 self.animate(temp.canvas, output)
+                self.animate(temp.canvas, output,'#fb5581')
                 # self.explain(
                 #     "{0} is greater than or equal to {1}  Hence traversing to right sub tree of {1}".format(input,
                 #                                                                                             temp.val))
                 temp = temp.left
+                # tkMessageBox.FunctionName(title, message [, options])
+                msg.showinfo(title="Node found", message="{0}  {1}".format(input,temp.val))
+                return
             else:
                 self.animate(temp.canvas, output,'#fb5581')
                 temp = temp.right
+                msg.showinfo(title="Node found", message="{0}  {1}".format(input,temp.val))
                 # self.explain("{0} found".format(input))
                 return
+            
+           
         else:
             # self.explain("{0} is not present in tree".format(input))
             msg.showwarning(title="Not Found",message="{} is not present in tree.".format(input))

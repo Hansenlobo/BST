@@ -26,7 +26,7 @@ class algos(object):
 
 class vALGO(object):
     def __init__(self):
-        self.window = ThemedTk(theme="equilux", className="vALGO")
+        self.window = ThemedTk(theme="yaru", className="NAME GOES HERE")
         self.window.rowconfigure(0, weight=1)
         self.window.columnconfigure(0, weight=1)
         self.logo = PhotoImage(file="png\\logoc.png")
