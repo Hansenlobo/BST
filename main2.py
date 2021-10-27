@@ -29,7 +29,7 @@ class vALGO(object):
         self.window = ThemedTk(theme="equilux", className="vALGO")
         self.window.rowconfigure(0, weight=1)
         self.window.columnconfigure(0, weight=1)
-        self.logo = PhotoImage(file="Binary Tree\\vALGO\\png\\logoc.png")
+        self.logo = PhotoImage(file="png\\logoc.png")
         self.window.iconphoto(False, self.logo)
         self.width = self.window.winfo_screenwidth() * 3 // 4
         self.height = self.window.winfo_screenheight() * 3 // 4
@@ -43,16 +43,16 @@ class vALGO(object):
     def dashboard_page(self, parentframe):
         heading = ttk.Frame(master=parentframe)
         canvas = tk.Canvas(master=heading, width=100, height=80, bg="#464646")
-        self.mainimg = PhotoImage(file="Binary Tree\\vALGO\\png\\mimg4.png")
+        self.mainimg = PhotoImage(file="png\\mimg4.png")
         canvas.create_image(50, 50, image=self.mainimg)
         canvas.config(highlightthickness=0)
         canvas.pack(side=tk.LEFT, anchor=tk.CENTER)
-        title = ttk.Label(master=heading, text="vALGO", font=('Helvetica', 16))
-        title.pack(side=tk.LEFT, anchor=tk.CENTER)
+        # title = ttk.Label(master=heading, text="vALGO", font=('Helvetica', 16))
+        # title.pack(side=tk.LEFT, anchor=tk.CENTER)
         heading.pack()
         contents = ttk.Frame(master=parentframe)
         algo =algos(contents)
-        algoimg = "Binary Tree\\vALGO\\png\\binarytree.png"
+        algoimg = "png\\binarytree.png"
         algo.addalgo("Binary Search Tree", self.width, self.height,
                      algoimg, 2, 0, self.binarysearchtreepage)
         contents.pack()
