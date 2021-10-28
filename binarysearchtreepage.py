@@ -1,12 +1,7 @@
-
 import time
-import pyttsx3
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox as msg
-
-
-
 
 
 class Node(object):
@@ -23,17 +18,20 @@ class binarysearchtree_contents(object):
         self.x = width/2
         self.y = 40
         self.root = None
-        self.heading = ttk.Label(master=parentframe, text="BINARY SEARCH TREE", font=('Helvetica', 34))
-        self.heading.pack(fill=tk.X, padx=680, pady=10)
-        self.set_of_operations = tk.Frame(master=parentframe, padx=40, bg="#000")
+        self.heading = ttk.Label(master=parentframe,background="#00003f",foreground="#20E61A", text="BINARY SEARCH TREE", font=('Helvetica', 34),)
+        self.heading.pack(fill=tk.X, padx=680, pady=30)
+        self.set_of_operations = tk.Frame(master=parentframe, padx=40, bg="#00003f")
+        s=ttk.Style()
+        s.configure('TFrame', background='#00003f')
         self.node = ttk.Entry(master=self.set_of_operations)
         self.node.insert(0, "Enter node value")
         self.node.bind('<Button-1>', self.deletetext)
         self.output_frame = ttk.Frame(master=parentframe)
         # CHANGE CANVAS BG HERE
-        self.output = tk.Canvas(master=self.output_frame, bg="#fff", bd=1, highlightthickness=1, highlightbackground="#d8d8d8",
-                           relief=tk.FLAT, scrollregion=(0, 0, 100, 100))
-
+        self.output = tk.Canvas(master=self.output_frame,bg="#fff",width=1160,height=720, bd=1, highlightthickness=1, highlightbackground="#d8d8d8",relief=tk.FLAT,scrollregion=(0,0,100,100))
+        # self.output = tk.Canvas(master=self.output_frame,width=1160,height=520,bg="chocolate",relief=tk.RAISED,bd=8)
+        
+        # self.output_text=tk.Canvas.create_text(600,700,fill="darkblue",font="Times 20 italic bold",text="AA")
         self.insert_b = ttk.Button(master=self.set_of_operations, text="INSERT", command=lambda: self.insert(self.output))
         self.search_b = ttk.Button(master=self.set_of_operations, text="SEARCH", command=lambda: self.search(self.output))
         self.delete_b = ttk.Button(master=self.set_of_operations, text="DELETE", command=lambda: self.delete(self.output))
@@ -42,38 +40,43 @@ class binarysearchtree_contents(object):
         self.postorder_d = ttk.Button(master=self.set_of_operations, text="POSTORDER", command=lambda: self.postorderTraversal(self.root,self.output))
 
         self.allow_execution = True
+        # self.output.create_text(600,700,fill="darkblue",font="Times 20 italic bold",text=f"{res}\n")
+        self.node.pack(side=tk.LEFT, ipady=4, ipadx=4,padx=(1,10))
+        self.insert_b.pack(side=tk.LEFT, padx=2,ipady=4, ipadx=4)
+        self.search_b.pack(side=tk.LEFT, padx=2,ipady=4, ipadx=4)
+        self.delete_b.pack(side=tk.LEFT, padx=2,ipady=4, ipadx=4)
+        self.inorder_d.pack(side=tk.LEFT, padx=2,ipady=4, ipadx=4)
+        self.preorder_d.pack(side=tk.LEFT, padx=2,ipady=4, ipadx=4)
+        self.postorder_d.pack(side=tk.LEFT, padx=2,ipady=4, ipadx=4)
 
-        self.node.pack(side=tk.LEFT, ipady=4, ipadx=4)
-        self.insert_b.pack(side=tk.LEFT, padx=2)
-        self.search_b.pack(side=tk.LEFT, padx=2)
-        self.delete_b.pack(side=tk.LEFT, padx=2)
-        self.inorder_d.pack(side=tk.LEFT, padx=2)
-        self.preorder_d.pack(side=tk.LEFT, padx=2)
-        self.postorder_d.pack(side=tk.LEFT, padx=2)
+        self.set_of_operations.pack()
 
-        self.set_of_operations.pack(fill=tk.X)
+        # self.horscroll = tk.Scrollbar(master=self.output_frame,orient=tk.HORIZONTAL)
+        # self.horscroll.configure(command=self.output.xview)
+        # self.horscroll.pack(side=tk.BOTTOM,fill=tk.X)
 
-        self.horscroll = tk.Scrollbar(master=self.output_frame,orient=tk.HORIZONTAL)
-        self.horscroll.configure(command=self.output.xview)
-        self.horscroll.pack(side=tk.BOTTOM,fill=tk.X)
+        # self.verscroll = tk.Scrollbar(master=self.output_frame, orient=tk.VERTICAL)
+        # self.verscroll.configure(command=self.output.yview)
+        # self.verscroll.pack(side=tk.RIGHT, fill=tk.Y)
 
-        self.verscroll = tk.Scrollbar(master=self.output_frame, orient=tk.VERTICAL)
-        self.verscroll.configure(command=self.output.yview)
-        self.verscroll.pack(side=tk.RIGHT, fill=tk.Y)
+        # self.output.configure(yscrollcommand=self.verscroll.set,xscrollcommand=self.horscroll.set)
 
-        self.output.configure(yscrollcommand=self.verscroll.set,xscrollcommand=self.horscroll.set)
-
-        self.output.pack(fill=tk.BOTH, expand=1)
+        self.output.pack( expand=1)
         self.output_frame.pack(pady=20, padx=40, fill=tk.BOTH, expand=1)
         self.output['scrollregion'] = (0, 0,width,height)
         
     
 
     def insert(self,output):
-        input = int(self.node.get())
+        # input = int(self.node.get())
+        # if input == "" or input == "Enter node value":
+        #     msg.showwarning(title="No Input", message="Please enter input")
+        #     return
+        input = self.node.get()
         if input == "" or input == "Enter node value":
             msg.showwarning(title="No Input", message="Please enter input")
             return
+        input=int(input)    
         if not self.root:
             curr_circle = output.create_oval(self.x,self.y,self.x+40,self.y+40,fill="black")
             curr_text = output.create_text(self.x+20,self.y+20,text=input,fill="white")
@@ -244,10 +247,15 @@ class binarysearchtree_contents(object):
 
 #search for element
     def search(self, output):
-        input = int(self.node.get())
+        # input = int(self.node.get())
+        # if input == "" or input == "Enter node value":
+        #     msg.showwarning(title="No Input", message="Please enter input")
+        #     return
+        input = self.node.get()
         if input == "" or input == "Enter node value":
             msg.showwarning(title="No Input", message="Please enter input")
             return
+        input=int(input)  
         temp = self.root
         while temp:
             if input<temp.val:
@@ -273,28 +281,41 @@ class binarysearchtree_contents(object):
 #Traversals - Inorder, Preorder and Postorder
     
     def inorderTraversal(self, temp, output):
+        res=[]
         if temp:
+            # self.output.create_text(600,700,fill="darkblue",font="Times 20 italic bold",text=f"")
             self.animate(temp.canvas, output,'#2acaea')
-            self.inorderTraversal(temp.left,output)
-            print(temp.val)
-            self.inorderTraversal(temp.right,output)
-        return 
+            res=self.inorderTraversal(temp.left,output)
+            res.append(temp.val)
+            print("io",res)
+            # self.output.create_text(600,700,fill="darkblue",font="Times 20 italic bold",text=res)
+            res=res+self.inorderTraversal(temp.right,output)
+        self.output.create_text(600,700,fill="darkblue",font="Times 20 italic bold",text=f"{res}\n")
+        return res
+
+
 
     def preorderTraversal(self, temp, output):
+        res=[]
         if temp:
             self.animate(temp.canvas, output,'#c9a0dc')
-            print(temp.val)
-            self.preorderTraversal(temp.left,output)
-            self.preorderTraversal(temp.right,output)
-        return 
+            res.append(temp.val)
+            print("pe",res)
+            res=res+self.preorderTraversal(temp.left,output)
+            res=res+self.preorderTraversal(temp.right,output)
+        self.output.create_text(600,700,fill="darkblue",font="Times 20 italic bold",text=f"{res}\n")
+        return res
+    
     
     def postorderTraversal(self, temp, output):
+        res=[]
         if temp:
             self.animate(temp.canvas, output,'#ff9100')
-            self.postorderTraversal(temp.left,output)
-            self.postorderTraversal(temp.right,output)
-            print(temp.val)
-        return 
+            res=self.postorderTraversal(temp.left,output)
+            res=res+self.postorderTraversal(temp.right,output)
+            res.append(temp.val)
+        self.output.create_text(600,700,fill="darkblue",font="Times 20 italic bold",text=f"{res}\n")
+        return res
 
     
 
