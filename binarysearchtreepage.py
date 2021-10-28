@@ -29,11 +29,8 @@ class binarysearchtree_contents(object):
         self.node.insert(0, "Enter node value")
         self.node.bind('<Button-1>', self.deletetext)
         self.output_frame = ttk.Frame(master=parentframe)
-        # CHANGE CANVAS BG HERE
         self.output = tk.Canvas(master=self.output_frame,bg="#fff",width=1160,height=720, bd=1, highlightthickness=1, highlightbackground="#d8d8d8",relief=tk.FLAT,scrollregion=(0,0,100,100))
-        # self.output = tk.Canvas(master=self.output_frame,width=1160,height=520,bg="chocolate",relief=tk.RAISED,bd=8)
         
-        # self.output_text=tk.Canvas.create_text(600,700,fill="darkblue",font="Times 20 italic bold",text="")
         self.insert_b = ttk.Button(master=self.set_of_operations, text="INSERT", command=lambda: self.insert(self.output))
         self.search_b = ttk.Button(master=self.set_of_operations, text="SEARCH", command=lambda: self.search(self.output))
         self.delete_b = ttk.Button(master=self.set_of_operations, text="DELETE", command=lambda: self.delete(self.output))
@@ -41,7 +38,7 @@ class binarysearchtree_contents(object):
         self.preorder_d = ttk.Button(master=self.set_of_operations, text="PREORDER", command=lambda: [self.preorderTraversal(self.root,self.output),self.read()])
         self.postorder_d = ttk.Button(master=self.set_of_operations, text="POSTORDER", command=lambda: [self.postorderTraversal(self.root,self.output),self.read()])
         self.clear_d = ttk.Button(master=self.set_of_operations, text="Clear", command=lambda: self.clearFunc())
-        # self.output_text=tk.Canvas.create_text(600,700,fill="darkblue",font="Times 20 italic bold",text=)
+
         self.allow_execution = True
         self.node.pack(side=tk.LEFT, ipady=4, ipadx=4,padx=(1,10))
         self.insert_b.pack(side=tk.LEFT, padx=2,ipady=4, ipadx=4)
@@ -54,15 +51,6 @@ class binarysearchtree_contents(object):
 
         self.set_of_operations.pack()
 
-        # self.horscroll = tk.Scrollbar(master=self.output_frame,orient=tk.HORIZONTAL)
-        # self.horscroll.configure(command=self.output.xview)
-        # self.horscroll.pack(side=tk.BOTTOM,fill=tk.X)
-
-        # self.verscroll = tk.Scrollbar(master=self.output_frame, orient=tk.VERTICAL)
-        # self.verscroll.configure(command=self.output.yview)
-        # self.verscroll.pack(side=tk.RIGHT, fill=tk.Y)
-
-        # self.output.configure(yscrollcommand=self.verscroll.set,xscrollcommand=self.horscroll.set)
 
         self.output.pack( expand=1)
         self.output_frame.pack(pady=20, padx=40, fill=tk.BOTH, expand=1)
@@ -248,7 +236,6 @@ class binarysearchtree_contents(object):
                             self.move_all_cnodes(prev, 40, output)
 
 
-#search for element
     def search(self, output):
         # input = int(self.node.get())
         # if input == "" or input == "Enter node value":
@@ -281,19 +268,15 @@ class binarysearchtree_contents(object):
             return
 
 
-
     def read(self):
         f1=open("result.txt","r")
         last_line=f1.readlines()[-1]
         print(last_line)
-        # self.output.create_text(600,700,fill="darkblue",font="Times 20 italic bold",text=f"Traversal Result: {last_line}\n")
         self.output.create_text(600,700,fill="darkblue",font="Times 20 italic bold",text=f"Traversal Result: {last_line}\n",tags='trav')
         f1.close()
-        # time.sleep(10)
        
     def clearFunc(self):
         self.output.delete('trav')
-#Traversals - Inorder, Preorder and Postorder
     
     def inorderTraversal(self, temp, output):
         res=[]
@@ -305,10 +288,6 @@ class binarysearchtree_contents(object):
             f=open("result.txt","w")
             print(res,file=f)
             f.close()
-            
-        # print("io",res)
-        
-        # self.output.create_text(600,700,fill="darkblue",font="Times 20 italic bold",text=f"{res}\n")
         return res
 
     def preorderTraversal(self, temp, output):
@@ -322,7 +301,6 @@ class binarysearchtree_contents(object):
             f=open("result.txt","w")
             print(res,file=f)
             f.close()
-        # self.output.create_text(600,700,fill="darkblue",font="Times 20 italic bold",text=f"{RES}\n")
         return res
     
     def postorderTraversal(self, temp, output):
@@ -335,8 +313,6 @@ class binarysearchtree_contents(object):
             f=open("result.txt","w")
             print(res,file=f)
             f.close()
-        # print("po",res)
-        # self.output.create_text(600,700,fill="darkblue",font="Times 20 italic bold",text=f"{res}\n")
         return res 
 
     def delete(self, output,diffinput=""):
