@@ -2,6 +2,7 @@ import time
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox as msg
+from tkinter.constants import COMMAND
 
 
 class Node(object):
@@ -14,6 +15,7 @@ class Node(object):
 
 
 class binarysearchtree_contents(object):
+    
     def __init__(self,parentframe, width, height):
         self.x = width/2
         self.y = 40
@@ -31,16 +33,16 @@ class binarysearchtree_contents(object):
         self.output = tk.Canvas(master=self.output_frame,bg="#fff",width=1160,height=720, bd=1, highlightthickness=1, highlightbackground="#d8d8d8",relief=tk.FLAT,scrollregion=(0,0,100,100))
         # self.output = tk.Canvas(master=self.output_frame,width=1160,height=520,bg="chocolate",relief=tk.RAISED,bd=8)
         
-        # self.output_text=tk.Canvas.create_text(600,700,fill="darkblue",font="Times 20 italic bold",text="AA")
+        # self.output_text=tk.Canvas.create_text(600,700,fill="darkblue",font="Times 20 italic bold",text="")
         self.insert_b = ttk.Button(master=self.set_of_operations, text="INSERT", command=lambda: self.insert(self.output))
         self.search_b = ttk.Button(master=self.set_of_operations, text="SEARCH", command=lambda: self.search(self.output))
         self.delete_b = ttk.Button(master=self.set_of_operations, text="DELETE", command=lambda: self.delete(self.output))
-        self.inorder_d = ttk.Button(master=self.set_of_operations, text="INORDER", command=lambda: self.inorderTraversal(self.root,self.output))
-        self.preorder_d = ttk.Button(master=self.set_of_operations, text="PREORDER", command=lambda: self.preorderTraversal(self.root,self.output))
-        self.postorder_d = ttk.Button(master=self.set_of_operations, text="POSTORDER", command=lambda: self.postorderTraversal(self.root,self.output))
-
+        self.inorder_d = ttk.Button(master=self.set_of_operations, text="INORDER", command=lambda :[self.inorderTraversal(self.root,self.output),self.read()])
+        self.preorder_d = ttk.Button(master=self.set_of_operations, text="PREORDER", command=lambda: [self.preorderTraversal(self.root,self.output),self.read()])
+        self.postorder_d = ttk.Button(master=self.set_of_operations, text="POSTORDER", command=lambda: [self.postorderTraversal(self.root,self.output),self.read()])
+        self.clear_d = ttk.Button(master=self.set_of_operations, text="Clear", command=lambda: self.clearFunc())
+        # self.output_text=tk.Canvas.create_text(600,700,fill="darkblue",font="Times 20 italic bold",text=)
         self.allow_execution = True
-        # self.output.create_text(600,700,fill="darkblue",font="Times 20 italic bold",text=f"{res}\n")
         self.node.pack(side=tk.LEFT, ipady=4, ipadx=4,padx=(1,10))
         self.insert_b.pack(side=tk.LEFT, padx=2,ipady=4, ipadx=4)
         self.search_b.pack(side=tk.LEFT, padx=2,ipady=4, ipadx=4)
@@ -48,6 +50,7 @@ class binarysearchtree_contents(object):
         self.inorder_d.pack(side=tk.LEFT, padx=2,ipady=4, ipadx=4)
         self.preorder_d.pack(side=tk.LEFT, padx=2,ipady=4, ipadx=4)
         self.postorder_d.pack(side=tk.LEFT, padx=2,ipady=4, ipadx=4)
+        self.clear_d.pack(side=tk.LEFT, padx=2,ipady=4, ipadx=4)
 
         self.set_of_operations.pack()
 
@@ -278,34 +281,49 @@ class binarysearchtree_contents(object):
             return
 
 
+
+    def read(self):
+        f1=open("result.txt","r")
+        last_line=f1.readlines()[-1]
+        print(last_line)
+        # self.output.create_text(600,700,fill="darkblue",font="Times 20 italic bold",text=f"Traversal Result: {last_line}\n")
+        self.output.create_text(600,700,fill="darkblue",font="Times 20 italic bold",text=f"Traversal Result: {last_line}\n",tags='trav')
+        f1.close()
+        # time.sleep(10)
+       
+    def clearFunc(self):
+        self.output.delete('trav')
 #Traversals - Inorder, Preorder and Postorder
     
     def inorderTraversal(self, temp, output):
         res=[]
         if temp:
-            # self.output.create_text(600,700,fill="darkblue",font="Times 20 italic bold",text=f"")
             self.animate(temp.canvas, output,'#2acaea')
             res=self.inorderTraversal(temp.left,output)
             res.append(temp.val)
-            print("io",res)
-            # self.output.create_text(600,700,fill="darkblue",font="Times 20 italic bold",text=res)
             res=res+self.inorderTraversal(temp.right,output)
-        self.output.create_text(600,700,fill="darkblue",font="Times 20 italic bold",text=f"{res}\n")
+            f=open("result.txt","w")
+            print(res,file=f)
+            f.close()
+            
+        # print("io",res)
+        
+        # self.output.create_text(600,700,fill="darkblue",font="Times 20 italic bold",text=f"{res}\n")
         return res
-
-
 
     def preorderTraversal(self, temp, output):
         res=[]
         if temp:
             self.animate(temp.canvas, output,'#c9a0dc')
             res.append(temp.val)
-            print("pe",res)
+            
             res=res+self.preorderTraversal(temp.left,output)
             res=res+self.preorderTraversal(temp.right,output)
-        self.output.create_text(600,700,fill="darkblue",font="Times 20 italic bold",text=f"{res}\n")
+            f=open("result.txt","w")
+            print(res,file=f)
+            f.close()
+        # self.output.create_text(600,700,fill="darkblue",font="Times 20 italic bold",text=f"{RES}\n")
         return res
-    
     
     def postorderTraversal(self, temp, output):
         res=[]
@@ -314,10 +332,12 @@ class binarysearchtree_contents(object):
             res=self.postorderTraversal(temp.left,output)
             res=res+self.postorderTraversal(temp.right,output)
             res.append(temp.val)
-        self.output.create_text(600,700,fill="darkblue",font="Times 20 italic bold",text=f"{res}\n")
-        return res
-
-    
+            f=open("result.txt","w")
+            print(res,file=f)
+            f.close()
+        # print("po",res)
+        # self.output.create_text(600,700,fill="darkblue",font="Times 20 italic bold",text=f"{res}\n")
+        return res 
 
     def delete(self, output,diffinput=""):
         input = int(self.node.get())
