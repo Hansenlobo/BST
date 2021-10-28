@@ -58,10 +58,7 @@ class binarysearchtree_contents(object):
     
 
     def insert(self,output):
-        # input = int(self.node.get())
-        # if input == "" or input == "Enter node value":
-        #     msg.showwarning(title="No Input", message="Please enter input")
-        #     return
+
         input = self.node.get()
         if input == "" or input == "Enter node value":
             msg.showwarning(title="No Input", message="Please enter input")
@@ -75,7 +72,6 @@ class binarysearchtree_contents(object):
             self.animate(canvas,output)
             return
         temp = self.root
-        #Left sub tree from root
         if input<temp.val:
 
             while temp:
@@ -87,12 +83,7 @@ class binarysearchtree_contents(object):
                         ancestor = prev.parent
                         if ancestor and ancestor.val <= prev.val:
                             self.move_all_cnodes(prev, 40, output)
-                            #output.move(prev.canvas[0], 40, 0)
-                            #output.move(prev.canvas[1], 40, 0)
-                            #xa, ya, xa1, ya1 = output.coords(ancestor.canvas[0])
-                            #xp, yp, xp1, yp1 = output.coords(prev.canvas[0])
-                            #output.coords(prev.canvas[2], xa1, ya + 20, xp + 20, yp)
-                            #output.update()
+              
 
                         x, y, x1, y1 = output.coords(prev.canvas[0])
                         arrow = output.create_line(x, y + 20, x - 20, y + 40, arrow=tk.LAST, capstyle=tk.BUTT,
@@ -107,7 +98,6 @@ class binarysearchtree_contents(object):
                         prev.left = Node(input, canvas, prev)
                         self.animate(canvas, output)
 
-                        # self.explain("{0} inserted".format(input))
 
                         sr = list(map(int,output.cget('scrollregion').split()))
                         if x<=sr[0]:
@@ -160,7 +150,6 @@ class binarysearchtree_contents(object):
                             output['scrollregion'] = (sr[0], sr[1], sr[2] + 100, sr[3])
                             output.update()
 
-        # Right sub tree from root
         else:
             while temp:
                 if input>=temp.val:
@@ -236,10 +225,7 @@ class binarysearchtree_contents(object):
 
 
     def search(self, output):
-        # input = int(self.node.get())
-        # if input == "" or input == "Enter node value":
-        #     msg.showwarning(title="No Input", message="Please enter input")
-        #     return
+
         input = self.node.get()
         if input == "" or input == "Enter node value":
             msg.showwarning(title="No Input", message="Please enter input")
@@ -249,12 +235,10 @@ class binarysearchtree_contents(object):
         while temp:
             if input<temp.val:
                 self.animate(temp.canvas,output)
-                #msg.showinfo(title="Node found", message="{0} is less than {1}  Hence traversing to left sub tree of {1}".format(input,temp.val))
                 temp = temp.left
 
             elif input>temp.val:
                 self.animate(temp.canvas, output)
-                #msg.showinfo(title="Node found", message="{0} is greater than or equal to {1}  Hence traversing to right sub tree of {1}".format(input,temp.val))
                 temp = temp.right
             
             else:
@@ -262,7 +246,6 @@ class binarysearchtree_contents(object):
                 msg.showinfo(title="Node found", message=" Node {0} found".format(input))
                 return
         else:
-            # self.explain("{0} is not present in tree".format(input))
             msg.showwarning(title="Not Found",message="{} is not present in tree.".format(input))
             return
 
@@ -320,7 +303,6 @@ class binarysearchtree_contents(object):
             input = diffinput[0].val
             temp = diffinput[1]
             prev = temp.parent
-            #prev = diffinput[0].parent
             deletion_to_be_made = diffinput[2]
             if prev.parent and temp.val < self.root.val and temp.val<prev.val and prev.parent.val>prev.val:
               deletion_to_be_made.append([prev, 40, output])
@@ -330,10 +312,7 @@ class binarysearchtree_contents(object):
               deletion_to_be_made.append([prev, -40, output])
             elif prev.parent and temp.val > self.root.val and temp.val < prev.val and prev.parent.val < prev.val:
                 deletion_to_be_made.append([prev, -40, output])
-            #if temp.val < self.root.val and temp.val<prev.val and prev.parent.val>prev.val:
-                #deletion_to_be_made.append([prev, 40, output])
-            #elif temp.val > self.root.val and temp.val>prev.val and prev.parent.val<prev.val:
-                #deletion_to_be_made.append([prev, -40, output])
+
         else:
             deletion_to_be_made = []
             if self.root:
@@ -370,8 +349,6 @@ class binarysearchtree_contents(object):
                             deletion_to_be_made.append([prev, -40, output])
                         if input == temp.val:
                             self.animate(temp.canvas, output, '#fb5581')
-                            #if diffinput != "" :
-                                #diffinput[0].val, diffinput[1].val = diffinput[1].val, diffinput[0].val
                             self.found_delete(prev, 'l', 'l', temp, deletion_to_be_made, output)
                             return
 
@@ -388,8 +365,7 @@ class binarysearchtree_contents(object):
                             deletion_to_be_made.append([prev, 40, output])
                         if input == temp.val:
                             self.animate(temp.canvas, output, '#fb5581')
-                            #if diffinput != "" :
-                                #diffinput[0].val, diffinput[1].val = diffinput[1].val, diffinput[0].val
+                           
                             self.found_delete(prev, 'l', 'r', temp, deletion_to_be_made, output)
                             return
         else:
@@ -407,8 +383,7 @@ class binarysearchtree_contents(object):
                             deletion_to_be_made.append([prev, 40, output])
                         if input == temp.val:
                             self.animate(temp.canvas, output, '#fb5581')
-                            #if diffinput != "" :
-                                #diffinput[0].val, diffinput[1].val = diffinput[1].val, diffinput[0].val
+                            
                             self.found_delete(prev, 'r', 'r', temp, deletion_to_be_made, output)
                             return
                 else:
@@ -426,8 +401,7 @@ class binarysearchtree_contents(object):
 
                         if input == temp.val:
                             self.animate(temp.canvas, output, '#fb5581')
-                            #if diffinput != "" :
-                                #diffinput[0].val, diffinput[1].val = diffinput[1].val, diffinput[0].val
+                            
                             self.found_delete(prev, 'r', 'l', temp, deletion_to_be_made, output)
                             return
 
