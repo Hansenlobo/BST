@@ -34,28 +34,10 @@ class vALGO(object):
         self.width = self.window.winfo_screenwidth() * 3 // 4
         self.height = self.window.winfo_screenheight() * 3 // 4
         self.binarysearchtreepage = ttk.Frame(master=self.window)
-        #self.dashboardpage = ttk.Frame(master=self.window)
         self.pages = [self.binarysearchtreepage]
         for page in self.pages:
             page.grid(row=0, column=0, sticky='news')
         binarysearchtreecontents = binarysearchtreepage.binarysearchtree_contents(self.binarysearchtreepage, self.width, self.height)
-
-    #def dashboard_page(self, parentframe):
-    #heading = ttk.Frame(master=parentframe)
-    #canvas = tk.Canvas(master=heading, width=100, height=80, bg="#464646")
-    #self.mainimg = PhotoImage(file="png\\mimg4.png")
-    #canvas.create_image(50, 50, image=self.mainimg)
-    #canvas.config(highlightthickness=0)
-    #canvas.pack(side=tk.LEFT, anchor=tk.CENTER)
-    # title = ttk.Label(master=heading, text="vALGO", font=('Helvetica', 16))
-    # title.pack(side=tk.LEFT, anchor=tk.CENTER)
-    #heading.pack()
-    #contents = ttk.Frame(master=parentframe)
-    #algo =algos(contents)
-    #algoimg = "png\\binarytree.png"
-    #algo.addalgo("Binary Search Tree", self.width, self.height,
-                     #algoimg, 2, 0, self.binarysearchtreepage)
-    #contents.pack()
     
     def start(self):
         self.window.mainloop()
@@ -63,5 +45,4 @@ class vALGO(object):
 
 if __name__ == "__main__":
     valgo = vALGO()
-    #valgo.dashboard_page(valgo.dashboardpage)
     valgo.start()
